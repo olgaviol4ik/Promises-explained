@@ -1,55 +1,55 @@
 class Salad{
     constructor(){
-        let cucumber = 2;
-        let tomato = 2;
-        let celery = 2;
-        let spinach = 2;
-        let salt = "pinch";
-        let sauce = "some";
-        let saladPic = document.querySelector(".result");
+        this.cucumber = 2;
+        this.tomato = 2;
+        this.celery = 2;
+        this.spinach = 2;
+        this.salt = "pinch";
+        this.sauce = "some";
     }
-    washAll(cucumber, tomato, celery, spinach){
+    washAll(veggies){ //veggies is an array
         return new Promise(function(resolve, reject) {
             document.querySelector(".cut").addEventListener("click", ()=>{
-                resolve("foo");
+                resolve(veggies);
             });
           });  
     }
-    cutAll(cucumber, tomato, celery, spinach){
+    cutAll(veggies){
         return new Promise(function(resolve, reject) {
             document.querySelector(".washed").addEventListener("click", ()=>{
-                resolve("foo");
+                resolve(veggies);
             });
           });  
     } 
     saltAll(salt){
         return new Promise(function(resolve, reject) {
             document.querySelector(".mixed").addEventListener("click", ()=>{
-                resolve("foo");
+                resolve(salt);
             });
           });  
     }
     mixSauce(sauce){
         return new Promise(function(resolve, reject) {
             document.querySelector(".salted").addEventListener("click", ()=>{
-                resolve("foo");
+                resolve(sauce);
             });
           });  
     }
     allDone(){
         return Promise.all([
-            this.washAll(), 
-            this.cutAll(),
-            this.saltAll(),
-            this.mixSauce(),
+            this.washAll([this.cucumber, this.tomato, this.celery, this.spinach]), //our array veggies
+            this.cutAll([this.cucumber, this.tomato, this.celery, this.spinach]),
+            this.saltAll(this.salt),
+            this.mixSauce(this.sauce),
          ])
-    }
-    endPic(){
-   endPic.classList.toggle(".result");
+    } 
 }
-}
+let saladPic = document.querySelector(".result");
 
 let salad = new Salad();
-salad.allDone().then(()=>endPic());
-
+salad.allDone().then((values)=>{
+    console.log(values)
+    saladPic.style.display="block";
+    window.scrollTo(0,document.body.scrollHeight)
+});
 
